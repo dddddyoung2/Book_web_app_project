@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block alert %}
+{% if alert_msg %}
+<div class="alert alert-{{ alert_msg.type }}" role="alert">
+  {{ alert_msg.msg }}
+</div>
+{% endif %}
+{% endblock %}
+
+{% block title %}
+Review 수정 📝
+{% endblock %}
+
+{% block lead %}
+수정할 부분을 적어주세요.
+{% endblock %}
+
+{% block main_body %}
+<form method="POST" action="/review">
+  <input name="name" style="margin-bottom:10px" class="form-control" type="text" placeholder="책 이름 수정">
+  <input name="w_review" style="margin-bottom:20px" class="form-control" type="text" placeholder="구절 수정">
+
+  <input type="submit" class="btn btn-primary" value="수정">
+</form>
+{% endblock %}

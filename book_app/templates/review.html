@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block alert %}
+{% if alert_msg %}
+<div class="alert alert-{{ alert_msg.type }}" role="alert">
+  {{ alert_msg.msg }}
+</div>
+{% endif %}
+{% endblock %}
+
+{% block title %}
+✍ Review
+{% endblock %}
+
+{% block lead %}
+읽었던 책의 좋은 구절을 기록합니다.
+{% endblock %}
+
+{% block main_body %}
+<form method="POST" action="/reviewupdate">
+  <input name="name" style="margin-bottom:10px" class="form-control" type="text" placeholder="책 이름은 무엇인가요?">
+  <input name="w_review" style="margin-bottom:20px" class="form-control" type="text" placeholder="이 책에서 기억하고 싶은 구절을 적어보세요.">
+
+  <input type="submit" class="btn btn-primary" value="Add" />
+</form>
+
+{% if review_list %}
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">📙</th>
+      <th scope="col">Book Name</th>
+      <th scope="col">Review</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for review in review_list %}
+    <tr>
+      <th scope="row">{{ review.id }}</th>
+      <td>{{ review.name }}</td>
+      <td>{{ review.w_review }}</td>
+      <td>
+        <a class="btn btn-secondary", href='/review/{{ review.id }}'>
+          Delete
+        <a class="btn btn-secondary", href='/reviewupdate/{{ review.id }}'>
+          Update
+        </a>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block alert %}
+{% if alert_msg %}
+<div class="alert alert-{{ alert_msg.type }}" role="alert">
+  {{ alert_msg.msg }}
+</div>
+{% endif %}
+{% endblock %}
+
+{% block title %}
+My Book List 📚
+{% endblock %}
+
+{% block lead %}
+지금까지 읽은 책을 기록합니다.
+{% endblock %}
+
+{% block main_body %}
+<form method="POST" action="/book">
+  <input name="book_name" style="margin-bottom:10px" class="form-control" type="text" placeholder="책 이름은 무엇인가요?">
+  <input name="author" style="margin-bottom:10px" class="form-control" type="text" placeholder="저자는 누구인가요? (생략 가능)">
+  <input name="rating" style="margin-bottom:20px" class="form-control" type="text" placeholder="이 책은 나에게 어땠나요? (0~5점) ex) 4 ">
+
+  <input type="submit" class="btn btn-primary" value="Add" />
+</form>
+
+{% if book_list %}
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">📙</th>
+      <th scope="col">Book Name</th>
+      <th scope="col">Author</th>
+      <th scope="col">Rating</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for book in book_list %}
+    <tr>
+      <th scope="row">{{ book.id }}</th>
+      <td>{{ book.book_name }}</td>
+      <td>{{ book.author }}</td>
+      <td>{{ book.rating }}</td>
+      <td>
+        <a class="btn btn-secondary", href='/book/{{ book.id }}'>
+          Delete
+        </a>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endif %}
+<p></p>
+<p></p>
+<div style="border: 1px dotted; border-radius: 5px; padding: 10px;"> 👏 지금까지 읽은 책은 총 {{ totalbook }}권입니다 👏</div>
+{% endblock %}
